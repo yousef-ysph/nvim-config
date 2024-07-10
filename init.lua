@@ -20,7 +20,7 @@ vim.keymap.set(
     "fg",
     function()
         local text = get_visual_selections()
-        builtin.current_buffer_fuzzy_find({default_text = text})
+        builtin.live_grep({default_text = text})
     end,
     {noremap = true, silent = true}
 )
