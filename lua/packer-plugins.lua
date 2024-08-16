@@ -6,6 +6,8 @@ vim.cmd.packadd("packer.nvim")
 
 return require("packer").startup(
     function(use)
+        use "gruvbox-community/gruvbox"
+
         -- Packer can manage itself
         use "wbthomason/packer.nvim"
         use {"sbdchd/neoformat"}
@@ -16,18 +18,6 @@ return require("packer").startup(
             requires = {{"nvim-lua/plenary.nvim"}}
         }
 
-        use {
-            "nvim-treesitter/nvim-treesitter",
-            run = function()
-                local ts_update = require("nvim-treesitter.install").update({with_sync = true})
-                ts_update()
-            end
-        }
-        use "nvim-tree/nvim-tree.lua"
-        use "gruvbox-community/gruvbox"
-        use "pangloss/vim-javascript"
-
-        use("mbbill/undotree")
         use {
             "VonHeikemen/lsp-zero.nvim",
             branch = "v1.x",

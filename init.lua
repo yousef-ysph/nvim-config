@@ -24,6 +24,43 @@ vim.keymap.set(
     end,
     {noremap = true, silent = true}
 )
+
+local escape_lua_pattern
+do
+    local matches = {
+        ["^"] = "%^",
+        ["$"] = "%$",
+        ["("] = "%(",
+        [")"] = "%)",
+        ["%"] = "%%",
+        ["."] = "%.",
+        ["["] = "%[",
+        ["]"] = "%]",
+        ["*"] = "%*",
+        ["+"] = "%+",
+        ["-"] = "%-",
+        ["?"] = "%?"
+    }
+
+    escape_lua_pattern = function(s)
+        return (s:gsub(".", matches))
+    end
+end
+
+vim.keymap.set(
+    "n",
+    "<leader>cf",
+    function()
+        local linenum = vim.api.nvim_win_get_cursor(0)[1]
+        local relative_filepath =
+            string.gsub(vim.api.nvim_buf_get_name(0), escape_lua_pattern(vim.api.nvim_command_output("pw")), "")
+        vim.cmd('let @"="' .. relative_filepath .. ":" .. linenum .. '"')
+        vim.cmd('let @+="' .. relative_filepath .. ":" .. linenum .. '"')
+        vim.api.nvim_notify("Copied filename to clipboard", 0, {})
+    end,
+    {noremap = true, silent = true}
+)
+
 vim.keymap.set("n", "fb", builtin.buffers, {})
 vim.keymap.set("n", "fh", builtin.help_tags, {})
 vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, {desc = "Find Symbols"})
