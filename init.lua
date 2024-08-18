@@ -78,4 +78,4 @@ vim.api.nvim_set_keymap("n", "<C-a>", ":tabnext <CR>", {})
 vim.api.nvim_set_keymap("n", "<C-q>", ":tabprevious <CR>", {})
 vim.api.nvim_set_keymap("v", "c", '"+y', {})
 vim.api.nvim_set_keymap("n", "<leader>f", ":Neoformat | update <CR>", {})
-vim.cmd [[colorscheme gruvbox]]
+vim.cmd [[colorscheme catppuccin-mocha]]

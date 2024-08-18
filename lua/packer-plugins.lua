@@ -7,7 +7,7 @@ vim.cmd.packadd("packer.nvim")
 return require("packer").startup(
     function(use)
         use "gruvbox-community/gruvbox"
-
+        use {"catppuccin/nvim", as = "catppuccin"}
         -- Packer can manage itself
         use "wbthomason/packer.nvim"
         use {"sbdchd/neoformat"}
