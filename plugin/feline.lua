@@ -1,5 +1,5 @@
 local custom_gruvbox = require "lualine.themes.dracula"
-sections = {
+local sections = {
     lualine_a = {
         {
             "filename",
