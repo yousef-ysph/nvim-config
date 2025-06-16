@@ -1,12 +1,11 @@
 vim.opt.termguicolors = true
 vim.cmd("set nu rnu")
-
+vim.opt.runtimepath:append("~/.config/nvim")
 local function get_visual_selections()
     vim.cmd('noau normal! "vy"')
     return vim.fn.getreg("v")
 end
-
-require("packer-plugins")
+require("config.lazy");
 local builtin = require("telescope.builtin")
 vim.api.nvim_set_keymap("n", "<C-Up>", ":resize -2<CR>", {})
 vim.api.nvim_set_keymap("n", "<C-Down>", ":resize +2<CR>", {})
@@ -53,7 +52,7 @@ vim.keymap.set(
     function()
         local linenum = vim.api.nvim_win_get_cursor(0)[1]
         local relative_filepath =
-            string.gsub(vim.api.nvim_buf_get_name(0), escape_lua_pattern(vim.api.nvim_command_output("pw")) .. "/", "")
+            string.gsub(vim.api.nvim_buf_get_name(0), escape_lua_pattern(vim.api.nvim_command_output("pw")) .. '/', "")
         vim.cmd('let @"="' .. relative_filepath .. ":" .. linenum .. '"')
         vim.cmd('let @+="' .. relative_filepath .. ":" .. linenum .. '"')
         vim.api.nvim_notify("Copied filename to clipboard", 0, {})
@@ -96,11 +95,12 @@ vim.cmd [[
 ]]
 local isTransparent = true
 
-local toggleTransparent = function()
-    if isTransparent then
-        vim.cmd("colorscheme " .. colorScheme)
-    else
-        vim.cmd [[
+local toggleTransparent = function  ()
+	if isTransparent then
+
+		vim.cmd("colorscheme " .. colorScheme)
+	else
+		vim.cmd [[
 			highlight Normal guibg=none
 			highlight NonText guibg=none
 			highlight Normal ctermbg=none
@@ -114,17 +114,18 @@ local toggleTransparent = function()
 			highlight TelescopeResultsNormal guibg=NONE
 			highlight TelescopeResultsBorder guibg=NONE
 		]]
-    end
-    isTransparent = not isTransparent
+
+	end
+	isTransparent = not isTransparent
 end
+
 
 vim.api.nvim_create_user_command(
     "ToggleTransparent", -- string
-    toggleTransparent,
-    {}
+toggleTransparent,{}
 )
 
--- CUSTOM MACROS
+
+--CUSTOM_MACROS--
 local esc = vim.api.nvim_replace_termcodes("<Esc>",true,true,true)
 vim.fn.setreg("l","yoconsolel.log('" .. esc .. "pa: '," .. esc .. "pa);")
-

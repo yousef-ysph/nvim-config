@@ -18,7 +18,20 @@ lsp.on_attach(
 
 lsp.setup_servers({"tsserver", "eslint", "intelephense", "pyright"})
 
-lsp.setup()
+lsp.setup({
+  servers = {
+    svelte = {
+      filetypes = { "svelte" },
+      settings = {
+        svelte = {
+          plugin = {
+            svelteCheck = true,
+          },
+        },
+      },
+    },
+  },
+})
 
 vim.diagnostic.config(
     {
